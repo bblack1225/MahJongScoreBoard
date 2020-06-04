@@ -1,6 +1,7 @@
 package com.example.mjScore.model;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -31,10 +32,10 @@ public class GroupBean {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
-	private int id;
 	@Column(name="groupId")
-	private String  groupId;
+	private int groupId;
+	@Column(name="groupAccount")
+	private String  groupAccount;
 	@Column(name="password")
 	private String	password;
 	@Column(name="groupName")
@@ -44,7 +45,6 @@ public class GroupBean {
 	@Column(name="lastTimeToPlay")
 	private Date 	lastTimeToPlay;
 	
-//	@OneToMany(mappedBy = "groupBean", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//	@JoinColumn(name = "member_id")
-//	private Set<MemberBean> members = new LinkedHashSet<>();
+	@OneToMany(mappedBy = "groupBean",fetch = FetchType.EAGER)
+	private Set<MemberBean> memberBean = new HashSet<>();
 }
