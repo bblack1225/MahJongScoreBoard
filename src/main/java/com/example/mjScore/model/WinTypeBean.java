@@ -34,4 +34,72 @@ public class WinTypeBean {
 	
 	@ManyToMany(mappedBy = "wintype")
 	private Set<MemberBean> memerBean = new HashSet<>();
+	
+	
+	
+	public WinTypeBean() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+
+	public WinTypeBean(int typeId, String typeName, int typeNumber, Set<MemberBean> memerBean) {
+		super();
+		this.typeId = typeId;
+		this.typeName = typeName;
+		this.typeNumber = typeNumber;
+		this.memerBean = memerBean;
+	}
+
+
+
+	public int getTypeId() {
+		return typeId;
+	}
+
+
+
+	public void setTypeId(int typeId) {
+		this.typeId = typeId;
+	}
+
+
+
+	public String getTypeName() {
+		return typeName;
+	}
+
+
+
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
+	}
+
+
+
+	public int getTypeNumber() {
+		return typeNumber;
+	}
+
+
+
+	public void setTypeNumber(int typeNumber) {
+		this.typeNumber = typeNumber;
+	}
+
+
+
+	public Set<MemberBean> getMemerBean() {
+		return memerBean;
+	}
+
+
+
+	public void setMemerBean(Set<MemberBean> memerBean) {
+		this.memerBean = memerBean;
+	}
+	
+	
+	
 }

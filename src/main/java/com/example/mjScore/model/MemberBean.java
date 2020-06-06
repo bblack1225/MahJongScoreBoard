@@ -56,4 +56,70 @@ public class MemberBean {
 	@JoinColumn(name="typeId")
 	private Set<WinTypeBean> wintype = new HashSet<>();
 	
+	
+	
+	public MemberBean() {
+		super();
+	}
+
+	public MemberBean(int memberId, String memberName, Date joinDate, int score, GroupBean groupBean,
+			Set<WinTypeBean> wintype) {
+		super();
+		this.memberId = memberId;
+		this.memberName = memberName;
+		this.joinDate = joinDate;
+		this.score = score;
+		this.groupBean = groupBean;
+		this.wintype = wintype;
+	}
+
+	public int getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(int memberId) {
+		this.memberId = memberId;
+	}
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
+	public Date getJoinDate() {
+		return joinDate;
+	}
+
+	public void setJoinDate(Date joinDate) {
+		this.joinDate = joinDate;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public GroupBean getGroupBean() {
+		return groupBean;
+	}
+
+	public void setGroupBean(GroupBean groupBean) {
+		this.groupBean = groupBean;
+	}
+
+	public Set<WinTypeBean> getWintype() {
+		return wintype;
+	}
+
+	public void setWintype(Set<WinTypeBean> wintype) {
+		this.wintype = wintype;
+	}
+	
+	
 }

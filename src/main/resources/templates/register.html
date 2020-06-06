@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>建立隊伍</h1>
+	<form method="post" th:action="@{/member/register}" th:object="${group}">
+		<p>帳號:<input th:field="*{groupAccount}" /></p>
+		<p>密碼:<input th:field="*{password}" /></p>
+		<p>隊名:<input th:field="*{groupName}" /></p>
+		<input type="submit" value="建立隊伍" />
+	</form>
+</body>
+</html>

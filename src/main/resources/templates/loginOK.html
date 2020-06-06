@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>登入成功</h1>
+	<p>帳號: <span th:text="${session.LoginOK.groupAccount}" ></span></p>
+	<p>密碼: <span th:text="${session.LoginOK.password}" ></span></p>
+	<p>隊伍: <span th:text="${session.LoginOK.groupName}" ></span></p>
+</body>
+</html>
