@@ -7,4 +7,6 @@ public interface MemberDao {
 	public void saveGroup(GroupBean gb);
 	
 	public GroupBean checkLogin(String account,String password);
+	
+	public boolean accountExists(String account);
 }

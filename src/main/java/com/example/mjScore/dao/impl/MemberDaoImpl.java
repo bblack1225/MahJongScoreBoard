@@ -3,6 +3,7 @@ package com.example.mjScore.dao.impl;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -34,6 +35,21 @@ public class MemberDaoImpl implements MemberDao {
 			gb = bean.get(0);
 		}
 		return gb;
+	}
+
+	@Override
+	public boolean accountExists(String account) {
+		boolean exist = false;
+		String hql = "FROM GroupBean g WHERE g.groupAccount = :account";
+		try {
+			em.createQuery(hql)
+			  .setParameter("account", account)
+			  .getSingleResult();
+			exist = true;
+		} catch (NoResultException ex) {
+			exist = false;
+		}
+		return exist;
 	}
 
 }

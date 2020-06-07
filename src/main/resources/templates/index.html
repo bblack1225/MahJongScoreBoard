@@ -12,8 +12,7 @@
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 	crossorigin="anonymous"></script>
 <link rel="stylesheet" th:href="@{/css/index.css}">
-<script type="text/javascript" th:src="@{/js/aniForForm.js}"></script>
-    <script type="text/javascript" th:src="@{/js/index.js}"></script>
+
 </head>
 <body>
 <!-- 	<h1>麻將積分系統</h1> -->
@@ -27,7 +26,7 @@
 <!-- 		</p> -->
 <!-- 		<input type="submit" value="登入"> -->
 <!-- 	</form> -->
-  <form class="loginForm animate__animated" th:action="@{/member/checkLogin}" method="POST">
+  <form class="loginForm animate__animated" th:action="@{/member/checkLogin}" method="POST" id="toLoginForm">
         <h2>Login</h2>
         <div class="input">
             <div class="inputBox">
@@ -41,14 +40,16 @@
                 <span class="loginPasswordEmpty">密碼未輸入</span>
             </div>
             <div class="inputBox">
-                <button type="submit" id="loginBtn">登入</button>
+                <button type="button" id="loginBtn" onclick="goTologin()">登入</button>
+                
+                <span class="loginError">帳號或密碼錯誤</span>
 <!--                 <input type="submit" id="loginBtn">登入 -->
             </div>
             <p class="register"><a href="#" id="goToRegister">前往註冊</a></p>
         </div>
     </form>
 
-    <form class="registerForm animate__animated" th:action="@{/member/register}" th:object="${group}">
+    <form class="registerForm animate__animated" th:action="@{/member/register}" th:object="${group}" id="registerForm">
         <h2>註冊</h2>
         <div class="input">
             <div class="inputBox">
@@ -62,17 +63,23 @@
                 <input class="passwordInput" type="password" th:field="*{password}"  placeholder="密碼:6到15字元" minlength="6" maxlength="15">
                 <input id="checkPswd" type="password" name="" placeholder="確認密碼" minlength="6" maxlength="15">
                 <span class="errorPassword">密碼不相同</span>
-                <span class="errorPasswordEmpty">密碼未輸入</span>
+                <span class="errorPasswordEmpty">密碼未輸入或為空白符號</span>
             </div>
             <div class="inputBox">
                 <label for="">隊名</label>
                 <input class="groupName" type="text" th:field="*{groupName}" placeholder="團名:12個字以內" autocomplete="off">
                 <span class="errorGroupEmpty">團名未輸入</span>
             <div class="inputBox">
-                <button class="submitBtn" type="submit" name="" id="">登入</button>
+                <button class="submitBtn" type="button" name="" id="" onclick="goRegister()">註冊</button>
             </div>
             <p class="register"><a href="#" id="goToLogin">前往登入</a></p>
         </div>
     </form>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+	crossorigin="anonymous"></script>
+    <script type="text/javascript" th:src="@{/js/aniForForm.js}"></script>
+    <script type="text/javascript" th:src="@{/js/index.js}"></script>
 </body>
 </html>

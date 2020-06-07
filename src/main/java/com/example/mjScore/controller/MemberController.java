@@ -1,8 +1,11 @@
 package com.example.mjScore.controller;
 
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Timestamp;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,11 +60,36 @@ public class MemberController {
 		if(gb == null) {
 			System.out.println("帳密錯誤");
 			model.addAttribute("loginError", "帳號或密碼錯誤");
+			return "index";
 		}else {
 			System.out.println("帳號:" + gb.getGroupAccount());
 			System.out.println("密碼:" + gb.getPassword());
 			session.setAttribute("LoginOK", gb);
 		}
 		return "loginOK";
+	}
+	
+	@PostMapping("/checkSameAccount")
+	public void checkSameAccount(@RequestParam("account")String account,HttpServletResponse response) {
+		response.setCharacterEncoding("UTF-8");
+		//利用ajax方式，取得前端送來的email 
+		try (PrintWriter out = response.getWriter();) {
+			if (account.trim().length() != 0) {
+				//檢查資料庫內有沒有一樣的email 有的話就不能使用
+				boolean exist = memberService.accountExists(account);
+				if (!exist) {
+					out.write("帳號沒有重複");
+					out.flush();
+				} else {
+					out.write("帳號已重複");
+					out.flush();
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return;
+		
+		
 	}
 }

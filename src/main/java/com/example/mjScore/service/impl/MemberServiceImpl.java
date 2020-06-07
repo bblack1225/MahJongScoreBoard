@@ -28,4 +28,9 @@ public class MemberServiceImpl implements MemberService{
 		return dao.checkLogin(account, password);
 	}
 
+	@Override
+	public boolean accountExists(String account) {
+		return dao.accountExists(account);
+	}
+
 }
