@@ -26,9 +26,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Entity
 @Table(name = "members")
 public class MemberBean {	
@@ -47,14 +45,19 @@ public class MemberBean {
 	@Column(name="score")
 	private int score;
 	
-	@ManyToOne
-	@JoinColumn(name="groupId",nullable = false)
-	private GroupBean groupBean;
+	@Column(name="groupId")
+	private int groupId;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name="member_wintype")
-	@JoinColumn(name="typeId")
-	private Set<WinTypeBean> wintype = new HashSet<>();
+//	@ManyToOne
+//	@JoinColumn(name="groupId",nullable = false)
+//	private GroupBean groupBean;
+	
+	
+
+//	@ManyToMany(fetch = FetchType.EAGER)
+//	@JoinTable(name="member_wintype")
+//	@JoinColumn(name="typeId")
+//	private Set<WinTypeBean> wintype = new HashSet<>();
 	
 	
 	
@@ -62,19 +65,38 @@ public class MemberBean {
 		super();
 	}
 
-	public MemberBean(int memberId, String memberName, Date joinDate, int score, GroupBean groupBean,
-			Set<WinTypeBean> wintype) {
+//	public MemberBean(int memberId, String memberName, Date joinDate, int score, GroupBean groupBean,
+//			Set<WinTypeBean> wintype) {
+//		super();
+//		this.memberId = memberId;
+//		this.memberName = memberName;
+//		this.joinDate = joinDate;
+//		this.score = score;
+//		this.groupBean = groupBean;
+//		this.wintype = wintype;
+//	}
+
+	
+	
+	public int getMemberId() {
+		return memberId;
+	}
+
+	public MemberBean(String memberName, Date joinDate, int score, int groupId) {
+		super();
+		this.memberName = memberName;
+		this.joinDate = joinDate;
+		this.score = score;
+		this.groupId = groupId;
+	}
+
+	public MemberBean(int memberId, String memberName, Date joinDate, int score, int groupId) {
 		super();
 		this.memberId = memberId;
 		this.memberName = memberName;
 		this.joinDate = joinDate;
 		this.score = score;
-		this.groupBean = groupBean;
-		this.wintype = wintype;
-	}
-
-	public int getMemberId() {
-		return memberId;
+		this.groupId = groupId;
 	}
 
 	public void setMemberId(int memberId) {
@@ -105,21 +127,27 @@ public class MemberBean {
 		this.score = score;
 	}
 
-	public GroupBean getGroupBean() {
-		return groupBean;
-	}
+//	public GroupBean getGroupBean() {
+//		return groupBean;
+//	}
+//
+//	public void setGroupBean(GroupBean groupBean) {
+//		this.groupBean = groupBean;
+//	}
 
-	public void setGroupBean(GroupBean groupBean) {
-		this.groupBean = groupBean;
-	}
-
-	public Set<WinTypeBean> getWintype() {
-		return wintype;
-	}
-
-	public void setWintype(Set<WinTypeBean> wintype) {
-		this.wintype = wintype;
-	}
+//	public Set<WinTypeBean> getWintype() {
+//		return wintype;
+//	}
+//
+//	public void setWintype(Set<WinTypeBean> wintype) {
+//		this.wintype = wintype;
+//	}
 	
-	
+	public int getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(int groupId) {
+		this.groupId = groupId;
+	}
 }

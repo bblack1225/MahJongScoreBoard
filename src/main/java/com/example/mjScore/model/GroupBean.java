@@ -45,8 +45,8 @@ public class GroupBean {
 	@Column(name="lastTimeToPlay")
 	private Date 	lastTimeToPlay;
 	
-	@OneToMany(mappedBy = "groupBean",fetch = FetchType.EAGER)
-	private Set<MemberBean> memberBean = new HashSet<>();
+//	@OneToMany(mappedBy = "groupBean",fetch = FetchType.EAGER)
+//	private Set<MemberBean> memberBean = new HashSet<>();
 	
 	
 	
@@ -54,8 +54,28 @@ public class GroupBean {
 		super();
 	}
 
+//	public GroupBean(int groupId, String groupAccount, String password, String groupName, Date createTime,
+//			Date lastTimeToPlay, Set<MemberBean> memberBean) {
+//		super();
+//		this.groupId = groupId;
+//		this.groupAccount = groupAccount;
+//		this.password = password;
+//		this.groupName = groupName;
+//		this.createTime = createTime;
+//		this.lastTimeToPlay = lastTimeToPlay;
+//		this.memberBean = memberBean;
+//	}
+	
+	
+
+	public int getGroupId() {
+		return groupId;
+	}
+
+	
+	
 	public GroupBean(int groupId, String groupAccount, String password, String groupName, Date createTime,
-			Date lastTimeToPlay, Set<MemberBean> memberBean) {
+			Date lastTimeToPlay) {
 		super();
 		this.groupId = groupId;
 		this.groupAccount = groupAccount;
@@ -63,11 +83,6 @@ public class GroupBean {
 		this.groupName = groupName;
 		this.createTime = createTime;
 		this.lastTimeToPlay = lastTimeToPlay;
-		this.memberBean = memberBean;
-	}
-
-	public int getGroupId() {
-		return groupId;
 	}
 
 	public void setGroupId(int groupId) {
@@ -114,13 +129,13 @@ public class GroupBean {
 		this.lastTimeToPlay = lastTimeToPlay;
 	}
 
-	public Set<MemberBean> getMemberBean() {
-		return memberBean;
-	}
-
-	public void setMemberBean(Set<MemberBean> memberBean) {
-		this.memberBean = memberBean;
-	}
+//	public Set<MemberBean> getMemberBean() {
+//		return memberBean;
+//	}
+//
+//	public void setMemberBean(Set<MemberBean> memberBean) {
+//		this.memberBean = memberBean;
+//	}
 	
 	
 }

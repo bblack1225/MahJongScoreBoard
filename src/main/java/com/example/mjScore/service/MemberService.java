@@ -1,13 +1,34 @@
 package com.example.mjScore.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import com.example.mjScore.model.GroupBean;
+import com.example.mjScore.dao.MemberRepository;
+import com.example.mjScore.model.MemberBean;
 
-public interface MemberService {
+@Service
+public class MemberService {
 	
-	public void saveGroup(GroupBean gb);
+	@Autowired
+	private MemberRepository repo;
 	
-	public GroupBean checkLogin(String account,String password);
+//	//找所有隊員
+//	public List<MemberBean> findAllMembersByTeam(int id){
+//		return repo.findById(id).get()
+//	}
+//	
+	//新增隊員
+	public void addMember(MemberBean memberBean) {
+		repo.save(memberBean);
+	}
 	
-	public boolean accountExists(String account);
+	//找隊員
+	public MemberBean getMember(int id) {
+		return repo.findById(id).get();
+	}
+	
+	//刪除隊員
+	public void deleteMember(int id) {
+		repo.deleteById(id);
+	}
 }

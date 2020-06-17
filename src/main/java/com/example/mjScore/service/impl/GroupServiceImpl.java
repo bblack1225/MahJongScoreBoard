@@ -1,22 +1,29 @@
 package com.example.mjScore.service.impl;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.mjScore.dao.MemberDao;
+import com.example.mjScore.dao.GroupDao;
+import com.example.mjScore.dao.GroupRepository;
 import com.example.mjScore.model.GroupBean;
-import com.example.mjScore.service.MemberService;
+import com.example.mjScore.model.MemberBean;
+import com.example.mjScore.service.GroupService;
 
 @Transactional
 @Service
 @EnableTransactionManagement
-public class MemberServiceImpl implements MemberService{
+public class GroupServiceImpl implements GroupService{
 
 	@Autowired
-	MemberDao dao;
+	GroupDao dao;
+	
+	@Autowired
+	GroupRepository repo;
 	
 	@Override
 	public void saveGroup(GroupBean gb) {
@@ -33,4 +40,11 @@ public class MemberServiceImpl implements MemberService{
 		return dao.accountExists(account);
 	}
 
+	@Override
+	public List<MemberBean> getMembersByTeamId(int id) {
+		return dao.getMembersByTeamId(id);
+	}
+
+
+	
 }

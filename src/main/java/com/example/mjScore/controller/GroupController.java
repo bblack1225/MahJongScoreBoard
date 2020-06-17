@@ -4,6 +4,8 @@ package com.example.mjScore.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -19,11 +21,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.mjScore.model.GroupBean;
+import com.example.mjScore.model.MemberBean;
+import com.example.mjScore.model.WinTypeBean;
+import com.example.mjScore.service.GroupService;
 import com.example.mjScore.service.MemberService;
+import com.example.mjScore.service.TypeService;
 
 @Controller
 @RequestMapping("/member")
-public class MemberController {
+public class GroupController {
+	
+	@Autowired
+	GroupService groupService;
+	
+	@Autowired
+	TypeService typeService;
 	
 	@Autowired
 	MemberService memberService;
@@ -36,9 +48,9 @@ public class MemberController {
 	
 	//註冊
 	@PostMapping("/register")
-	public String register(@ModelAttribute("group") GroupBean group,RedirectAttributes ra) {
+	public String register(@ModelAttribute("group") GroupBean group,RedirectAttributes ra,HttpSession session) {
 		group.setCreateTime(new Timestamp(System.currentTimeMillis()));
-		memberService.saveGroup(group);
+		groupService.saveGroup(group);
 		ra.addFlashAttribute("saveTeam", group);
 		return "redirect:/member/saveSuccess";
 	}
@@ -47,7 +59,6 @@ public class MemberController {
 	//轉跳登入成功
 	@GetMapping("/saveSuccess")
 	public String saveSuccess() {
-		
 		return "groupPage";
 	} 
 	
@@ -56,17 +67,18 @@ public class MemberController {
 	public String checkLogin(@RequestParam("account") String account,
 							 @RequestParam("password")String password,
 							 Model model,HttpSession session,RedirectAttributes ra) {
-		GroupBean gb = memberService.checkLogin(account, password);
+		GroupBean gb = groupService.checkLogin(account, password);
 		if(gb == null) {
-			System.out.println("帳密錯誤");
 			model.addAttribute("loginError", "帳號或密碼錯誤");
 			return "index";
 		}else {
-			System.out.println("帳號:" + gb.getGroupAccount());
-			System.out.println("密碼:" + gb.getPassword());
+			List<MemberBean> members = groupService.getMembersByTeamId(gb.getGroupId());
+			List<WinTypeBean> types = typeService.getAllType();
 			session.setAttribute("LoginOK", gb);
+			model.addAttribute("groupMembers", members);
+			model.addAttribute("type", types);
 		}
-		return "loginOK";
+		return "groupPage";
 	}
 	
 	@PostMapping("/checkSameAccount")
@@ -76,7 +88,7 @@ public class MemberController {
 		try (PrintWriter out = response.getWriter();) {
 			if (account.trim().length() != 0) {
 				//檢查資料庫內有沒有一樣的email 有的話就不能使用
-				boolean exist = memberService.accountExists(account);
+				boolean exist = groupService.accountExists(account);
 				if (!exist) {
 					out.write("帳號沒有重複");
 					out.flush();
@@ -91,5 +103,20 @@ public class MemberController {
 		return;
 		
 		
+	}
+	
+	@PostMapping("/addMembers")
+	public void addMembers(@RequestParam("memberName")String newMember,HttpServletResponse response,HttpSession session) {
+		response.setCharacterEncoding("UTF-8");
+		try (PrintWriter out = response.getWriter();) {
+			GroupBean gb = (GroupBean)session.getAttribute("LoginOK");
+			Integer groupId = gb.getGroupId();
+			MemberBean mb = new MemberBean(newMember,new java.util.Date(),0,groupId);
+			memberService.addMember(mb);
+			System.out.println("加入成功");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return;
 	}
 }

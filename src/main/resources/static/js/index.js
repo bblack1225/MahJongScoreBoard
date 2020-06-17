@@ -23,7 +23,7 @@ $(document).ready(function () {
     //帳號blur完有沒有輸入
     $('.accountInput').blur(function (e) {
         e.preventDefault();
-        var loginAccount = $('.accountInput').val();
+        let loginAccount = $('.accountInput').val();
         
         //如果帳號不是空的才去執行ajax檢查帳號的方法
         if(loginAccount != null){
@@ -77,8 +77,8 @@ function goRegister(){
 
 //如果原本有錯誤訊息時，blur input視窗後座的檢查
 function blurloginEmpty(){
-    var loginAccount = $('.loginAccount').val();
-    var loginPassword = $('.loginpassword').val();
+    let loginAccount = $('.loginAccount').val();
+    let loginPassword = $('.loginpassword').val();
     if(loginAccount != '' && $('.loginAccountEmpty').css('display') == 'block'){
         $('.loginAccountEmpty').css('display','none')
     }else if(loginPassword != '' && $('.loginPasswordEmpty').css('display') == 'block'){
@@ -88,8 +88,8 @@ function blurloginEmpty(){
 
 //登入鈕按下去後做的檢查
 function checkloginEmpty(){
-    var loginAccount = $('.loginAccount').val();
-    var loginPassword = $('.loginpassword').val();
+    let loginAccount = $('.loginAccount').val();
+    let loginPassword = $('.loginpassword').val();
     if(loginAccount.trim() == ''){
         $('.loginAccountEmpty').css('display','block')
     }else{
@@ -111,10 +111,10 @@ function checkloginEmpty(){
 
 //註冊按下去時所做的檢查
 function checkRegister(){
-	var account = $('.accountInput').val();
-	var password = $('.passwordInput').val();
-    var checkPassword = $('#checkPswd').val();
-    var groupName = $('.groupName').val();
+	let account = $('.accountInput').val();
+	let password = $('.passwordInput').val();
+    let checkPassword = $('#checkPswd').val();
+    let groupName = $('.groupName').val();
     
     //如果帳號空白
     if(account.trim() == ''){
@@ -149,8 +149,8 @@ function checkRegister(){
 
 //檢查兩個密碼輸入框是否相同的方法
 function checkPswd(){
-    var password = $('.passwordInput').val();
-    var checkPassword = $('#checkPswd').val();
+    let password = $('.passwordInput').val();
+    let checkPassword = $('#checkPswd').val();
 
     if(password.trim() != '' && password != checkPassword){
         $('.errorPasswordEmpty').css('display','none')
@@ -165,7 +165,7 @@ function checkPswd(){
 
 //檢查帳號輸入框是否空白的方法
 function checkAccountEmpty(){
-    var account = $('.accountInput').val();
+    let account = $('.accountInput').val();
 
     if(account == ''){
         $('.errorAccountEmpty').css('display','block')
@@ -176,8 +176,8 @@ function checkAccountEmpty(){
 
 //檢查密碼欄是否相同的方法，與比對密碼分開寫比較不會亂(我會亂)
 function checkPswdEmpty(){
-    var password = $('.passwordInput').val();
-    var checkPassword = $('#checkPswd').val();
+    let password = $('.passwordInput').val();
+    let checkPassword = $('#checkPswd').val();
 
     if(password.trim() == '' || checkPassword.trim() == ''){
         $('.errorPassword').css('display','none');
@@ -189,7 +189,7 @@ function checkPswdEmpty(){
 
 //檢查團名是否空白
 function checkGroupEmpty(){
-    var groupName = $('.groupName').val();
+    let groupName = $('.groupName').val();
     if(groupName.trim() == ''){
         $('.errorGroupEmpty').css('display','block')
     }else{

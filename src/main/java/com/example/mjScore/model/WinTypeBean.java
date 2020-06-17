@@ -32,8 +32,8 @@ public class WinTypeBean {
 	@Column(name="typeNumber")
 	private int typeNumber;
 	
-	@ManyToMany(mappedBy = "wintype")
-	private Set<MemberBean> memerBean = new HashSet<>();
+//	@ManyToMany(mappedBy = "wintype")
+//	private Set<MemberBean> memerBean = new HashSet<>();
 	
 	
 	
@@ -44,12 +44,11 @@ public class WinTypeBean {
 
 
 
-	public WinTypeBean(int typeId, String typeName, int typeNumber, Set<MemberBean> memerBean) {
+	public WinTypeBean(int typeId, String typeName, int typeNumber) {
 		super();
 		this.typeId = typeId;
 		this.typeName = typeName;
 		this.typeNumber = typeNumber;
-		this.memerBean = memerBean;
 	}
 
 
@@ -89,16 +88,16 @@ public class WinTypeBean {
 	}
 
 
-
-	public Set<MemberBean> getMemerBean() {
-		return memerBean;
-	}
-
-
-
-	public void setMemerBean(Set<MemberBean> memerBean) {
-		this.memerBean = memerBean;
-	}
+//
+//	public Set<MemberBean> getMemerBean() {
+//		return memerBean;
+//	}
+//
+//
+//
+//	public void setMemerBean(Set<MemberBean> memerBean) {
+//		this.memerBean = memerBean;
+//	}
 	
 	
 	

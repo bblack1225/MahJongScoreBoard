@@ -1,6 +1,7 @@
 package com.example.mjScore.dao.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -8,12 +9,13 @@ import javax.persistence.NoResultException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.example.mjScore.dao.MemberDao;
+import com.example.mjScore.dao.GroupDao;
 import com.example.mjScore.model.GroupBean;
+import com.example.mjScore.model.MemberBean;
 
 
 @Repository
-public class MemberDaoImpl implements MemberDao {
+public class GroupDaoImpl implements GroupDao {
 
 	@Autowired
 	EntityManager em;
@@ -50,6 +52,14 @@ public class MemberDaoImpl implements MemberDao {
 			exist = false;
 		}
 		return exist;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MemberBean> getMembersByTeamId(int id) {
+		String hql = "FROM MemberBean m WHERE m.groupId = :id";
+		return em.createQuery(hql).setParameter("id", id).getResultList();
+//		return em.find(GroupBean.class, id);
 	}
 
 }
