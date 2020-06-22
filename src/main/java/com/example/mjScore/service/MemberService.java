@@ -27,8 +27,5 @@ public class MemberService {
 		return repo.findById(id).get();
 	}
 	
-	//刪除隊員
-	public void deleteMember(int id) {
-		repo.deleteById(id);
-	}
+	
 }

@@ -57,9 +57,15 @@ public class GroupDaoImpl implements GroupDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<MemberBean> getMembersByTeamId(int id) {
-		String hql = "FROM MemberBean m WHERE m.groupId = :id";
+		String hql = "FROM MemberBean m WHERE m.groupId = :id ORDER BY m.score DESC";
 		return em.createQuery(hql).setParameter("id", id).getResultList();
 //		return em.find(GroupBean.class, id);
 	}
 
+	@Override
+	public void updateMemberScore(int id,int score) {
+		String hql = "UPDATE MemberBean  m SET m.score = :score WHERE m.memberId = :id";
+		em.createQuery(hql).setParameter("score", score).setParameter("id", id).executeUpdate();
+	}
+	
 }

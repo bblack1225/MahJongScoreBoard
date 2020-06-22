@@ -45,6 +45,11 @@ public class GroupServiceImpl implements GroupService{
 		return dao.getMembersByTeamId(id);
 	}
 
+	@Override
+	public void updateMemberScore(int id, int score) {
+		dao.updateMemberScore(id, score);
+	}
+
 
 	
 }

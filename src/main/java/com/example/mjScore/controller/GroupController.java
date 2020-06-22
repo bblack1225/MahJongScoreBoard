@@ -4,7 +4,6 @@ package com.example.mjScore.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.mjScore.model.GroupBean;
@@ -25,6 +25,7 @@ import com.example.mjScore.model.MemberBean;
 import com.example.mjScore.model.WinTypeBean;
 import com.example.mjScore.service.GroupService;
 import com.example.mjScore.service.MemberService;
+import com.example.mjScore.service.RecordService;
 import com.example.mjScore.service.TypeService;
 
 @Controller
@@ -66,7 +67,7 @@ public class GroupController {
 	@PostMapping("/checkLogin")
 	public String checkLogin(@RequestParam("account") String account,
 							 @RequestParam("password")String password,
-							 Model model,HttpSession session,RedirectAttributes ra) {
+							 Model model,HttpSession session) {
 		GroupBean gb = groupService.checkLogin(account, password);
 		if(gb == null) {
 			model.addAttribute("loginError", "帳號或密碼錯誤");
@@ -75,6 +76,7 @@ public class GroupController {
 			List<MemberBean> members = groupService.getMembersByTeamId(gb.getGroupId());
 			List<WinTypeBean> types = typeService.getAllType();
 			session.setAttribute("LoginOK", gb);
+			model.addAttribute("groupId", gb.getGroupId());
 			model.addAttribute("groupMembers", members);
 			model.addAttribute("type", types);
 		}
@@ -105,18 +107,4 @@ public class GroupController {
 		
 	}
 	
-	@PostMapping("/addMembers")
-	public void addMembers(@RequestParam("memberName")String newMember,HttpServletResponse response,HttpSession session) {
-		response.setCharacterEncoding("UTF-8");
-		try (PrintWriter out = response.getWriter();) {
-			GroupBean gb = (GroupBean)session.getAttribute("LoginOK");
-			Integer groupId = gb.getGroupId();
-			MemberBean mb = new MemberBean(newMember,new java.util.Date(),0,groupId);
-			memberService.addMember(mb);
-			System.out.println("加入成功");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return;
-	}
 }

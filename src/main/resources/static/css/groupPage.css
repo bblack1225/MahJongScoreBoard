@@ -29,7 +29,7 @@ body
 .scoreBox .member
 {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     color: #fff;
     width: 70%;
     margin: 10px auto;
@@ -39,10 +39,41 @@ body
     cursor: pointer;
 }
 
+/* 成員的紀錄*/
+#memberBox
+{
+	margin: 100px;
+    border-radius: 10px;
+    width: 500px;
+    min-height:500px;
+    border: 3px solid #586BA4;
+    box-shadow:  0px 0px 8px 1px #586BA4;
+    padding: 10px 0;
+    color: #fff;
+    font-size: 22px;
+    padding:10px 20px;
+}
+
+#memberBox #memberName
+{
+	font-size:40px;
+}
+
+/*滑鼠過去成員框框時放大，暗示可以點*/
 .scoreBox .member:hover
 {
 	transform:scale(1.2);
 	transition:0.3s;
+}
+
+.scoreBox .member .name
+{
+	padding-left:10px;
+}
+
+.scoreBox .member .score
+{
+	padding-right: 10px;
 }
 
 .recordForm
@@ -60,3 +91,23 @@ body
 {
 	padding-top:200px;
 }
+
+/* 特殊牌型的紀錄*/
+#specialType
+{
+	margin-top:20px;
+	width:80%;
+	display:grid;
+    grid-template-columns: repeat(auto-fill,minmax(150px,1fr));
+    grid-template-rows: auto;
+    gap: 0 50px;
+}
+
+/*單一種類的排版*/
+.singleType
+{
+	display:flex;
+	justify-content: flex-start;
+	margin-top:5px;
+}
+

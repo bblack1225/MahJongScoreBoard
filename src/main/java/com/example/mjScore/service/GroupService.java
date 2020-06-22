@@ -15,4 +15,6 @@ public interface GroupService {
 	public boolean accountExists(String account);
 	
 	public List<MemberBean> getMembersByTeamId(int id);
+	
+	public void updateMemberScore(int id,int score);
 }

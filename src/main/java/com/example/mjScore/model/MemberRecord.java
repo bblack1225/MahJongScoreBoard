@@ -1,6 +1,7 @@
 package com.example.mjScore.model;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,15 +15,15 @@ public class MemberRecord {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private Integer memberId;
-	private String winType;
-	private Timestamp winTime;
+	private Integer winType;
+	private Date winTime;
 	private Integer score;
 	
 	
 	public MemberRecord() {
 	}
 	
-	public MemberRecord(Integer id, Integer memberId, String winType, Timestamp winTime, Integer score) {
+	public MemberRecord(Integer id, Integer memberId, Integer winType, Date winTime, Integer score) {
 		super();
 		this.id = id;
 		this.memberId = memberId;
@@ -31,6 +32,16 @@ public class MemberRecord {
 		this.score = score;
 	}
 	
+	
+	
+	public MemberRecord(Integer memberId, Integer winType, Date winTime, Integer score) {
+		super();
+		this.memberId = memberId;
+		this.winType = winType;
+		this.winTime = winTime;
+		this.score = score;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -43,16 +54,16 @@ public class MemberRecord {
 	public void setMemberId(Integer memberId) {
 		this.memberId = memberId;
 	}
-	public String getWinType() {
+	public Integer getWinType() {
 		return winType;
 	}
-	public void setWinType(String winType) {
+	public void setWinType(Integer winType) {
 		this.winType = winType;
 	}
-	public Timestamp getWinTime() {
+	public Date getWinTime() {
 		return winTime;
 	}
-	public void setWinTime(Timestamp winTime) {
+	public void setWinTime(Date winTime) {
 		this.winTime = winTime;
 	}
 	public Integer getScore() {
