@@ -73,8 +73,18 @@ function showMembers(response) {
 	let inner = "";
 	for (i = 0; i < response.length; i++) {
 		// response[i].XXXX ---> 對應memberBean的性質
+		
 		inner += `<div class='member animate__animated animate__fadeIn' onclick="showRecords(`
 				+ response[i].memberId + `,` + response[i].score + `)">`;
+		if(i == 0){
+			inner += `<span><i class="fas fa-crown" style="color: yellow;"></i></span>`;
+		}
+		if(i == 1){
+			inner += `<span><i class="fas fa-medal" style="color: silver;></i></span>`;
+		}
+		if(i == response.length - 1){
+			inner += `<span><i class="fas fa-poop" style="color: brown; padding-left:5px;"></i></span>`;
+		}
 		inner += `<div class="name" id=` + response[i].memberId + `>`
 				+ response[i].memberName + `</div>`;
 		inner += `<div class='score animate__animated'>` + response[i].score
