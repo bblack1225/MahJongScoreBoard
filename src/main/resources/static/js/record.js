@@ -102,11 +102,11 @@ function showMemberRecords(response, score) {
 	// key為種類 value為次數
 	inner += `<div id="specialType">`
 	$.map(response, function(value, key) {
-		alert(key + " " + value);
+//		alert(key + " " + value);
 //	$.each(JSON.parse(list), function(i, record) {
 			inner += `<div class="singleType">`;
-			inner += `<div class="typeName">` + record.typeName+ `:</div>`;
-			inner += `<div id="typeCount">` + record.count + `次</div>`;
+			inner += `<div class="typeName">` + key+ `:</div>`;
+			inner += `<div id="typeCount">` + value + `次</div>`;
 			inner += `</div>`;
 	})
 	 inner += `</div>`;
