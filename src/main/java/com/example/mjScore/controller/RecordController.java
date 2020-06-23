@@ -65,13 +65,16 @@ public class RecordController {
 	}
 	
 	@PostMapping("/showRecords")
-	public List<Integer> showRecords(@RequestParam("memberId")int id){
-//		public Map<String,Integer> showRecords(@RequestParam("memberId")int id){
-//		Map<String,Integer> records = new LinkedHashMap<String, Integer>();
-		List<Integer> records = new ArrayList<>();
+//	public List<Integer> showRecords(@RequestParam("memberId")int id){
+		public Map<String,Integer> showRecords(@RequestParam("memberId")int id){
+		System.out.println("in");
+		Map<String,Integer> records = new LinkedHashMap<String, Integer>();
+//		List<Integer> records = new ArrayList<>();
 		records = recordService.getMemberRecords(id);
-		for(int a :records) {
-			System.out.print(records.get(a) + " ");
+		for(String a:records.keySet()) {
+			System.out.print("name" + a);
+			System.out.print("count" + records.get(a));
+			System.out.println();
 		}
 		return records;
 	}

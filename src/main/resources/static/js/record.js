@@ -55,10 +55,9 @@ function showRecords(memberId, score) {
 	$.ajax({
 		url : '/record/showRecords?memberId=' + memberId,
 		method : 'POST',
-		contentType : "application/json;charset=utf-8",
-		dataType : 'text',
+		contentType : "application/json",
+		dataType : 'JSON',
 		success : function(response) {
-			// 刷新input框框內的資料
 			showMemberRecords(response, score);
 		},
 		error : function(data) {
@@ -89,25 +88,27 @@ function showMembers(response) {
 function showMemberRecords(response, score) {
 	let recordBox = $('#memberBox');
 	let inner = "";
+//	let map = response;
 	inner += `<div id="memberName">` + "安安" + `</div>`;
 	inner += `<div id="memberScore">` + score + `</div>`;
-	inner += `<div id="specialType">`
-	for(i = 0 ;i<response.length;i++){
-		alert(response[i])
-		inner += `<div class="singleType">`;
-		inner += `<div class="typeName">` + "測試" + `:</div>`;
-		inner += `<div id="typeCount">` + response[i] + `次</div>`;
-		inner += `</div>`;
-	}
+//	inner += `<div id="specialType">`
+//	for(i = 0 ;i<response.length;i++){
+//		alert(response[i])
+//		inner += `<div class="singleType">`;
+//		inner += `<div class="typeName">` + "測試" + `:</div>`;
+//		inner += `<div id="typeCount">` + response[i] + `次</div>`;
+//		inner += `</div>`;
+//	}
 	// key為種類 value為次數
-//	$.map(map, function(value, key) {
+	inner += `<div id="specialType">`
+	$.map(response, function(value, key) {
+		alert(key + " " + value);
 //	$.each(JSON.parse(list), function(i, record) {
-//			inner += `<div id="specialType">`
-//			inner += `<div class="singleType">`;
-//			inner += `<div class="typeName">` + record.typeName+ `:</div>`;
-//			inner += `<div id="typeCount">` + record.count + `次</div>`;
-//			inner += `</div>`;
-//	})
+			inner += `<div class="singleType">`;
+			inner += `<div class="typeName">` + record.typeName+ `:</div>`;
+			inner += `<div id="typeCount">` + record.count + `次</div>`;
+			inner += `</div>`;
+	})
 	 inner += `</div>`;
 	 recordBox.html(inner);
 }

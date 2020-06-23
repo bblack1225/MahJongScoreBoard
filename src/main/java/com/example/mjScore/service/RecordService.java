@@ -35,40 +35,30 @@ public class RecordService {
 //	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Integer> getMemberRecords(Integer id){
-//		public Map<String,Integer> getMemberRecords(Integer id){
+//	public List<Integer> getMemberRecords(Integer id){
+		public Map<String,Integer> getMemberRecords(Integer id){
 //		Map<Integer,RecordData> map = new LinkedHashMap<Integer, RecordData>();
+		Map<String,Integer> map = new LinkedHashMap<String, Integer>();
 		String hql1 = "select r.winType from MemberRecord r where r.memberId = :id group by r.winType ORDER BY r.winType";
 		String hql2 = "select count(r.winType) from MemberRecord r where r.memberId = :id AND r.winType = :typeId group by r.winType";
 		String hql3 = "select w.typeName from WinTypeBean w where w.typeId = :typeId";
-		List<String> list = em.createQuery(hql1).setParameter("id", id).getResultList();
-		List<Integer> mapTolist = new ArrayList<>();
+		List<Integer> list = em.createQuery(hql1).setParameter("id", id).getResultList();
+		System.out.println("size" + list.size());
+//		List<Integer> mapTolist = new ArrayList<>();
 		int i = 1;
 		while(i != 25) {
 			String typeName = (String)em.createQuery(hql3).setParameter("typeId", i).getSingleResult();
-			if(list.contains(typeName)) {
+			if(list.contains(i)) {
 				//count的return 型態為Long 要再轉型
 				Long countL = (long)em.createQuery(hql2).setParameter("id", id).setParameter("typeId", i).getSingleResult();
 				int count = countL.intValue();
-//				map.put(id, new RecordData(typeName,count));
-//				mapTolist.add(new RecordData(typeName,count));
-				mapTolist.add(count);
+				map.put(typeName,count);
 			}else {
-//				String typeName = (String)em.createQuery(hql3).setParameter("typeId", i).getSingleResult();
-//				map.put(id, new RecordData(typeName,0));
-				mapTolist.add(0);
+				map.put(typeName,0);
 			}
 			i++;
-		}
-//		for(Integer i:list) {
-//			//count的return 型態為Long 要再轉型
-//			Long countL = (long)em.createQuery(hql2).setParameter("id", id).setParameter("typeId", i).getSingleResult();
-//			int count = countL.intValue();
-//			map.put(i, count);
-//		}
-		
-		return mapTolist;
-//		return map;
+		}		
+		return map;
 	}
 	
 }
