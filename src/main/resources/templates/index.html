@@ -25,24 +25,27 @@
 <!-- 			密碼:<input type="text" name="password" required> -->
 <!-- 		</p> -->
 <!-- 		<input type="submit" value="登入"> -->
-<!-- 	</form> -->
-  <form class="loginForm animate__animated" th:action="@{/member/checkLogin}" method="POST" id="toLoginForm">
+<!-- 	</form> -->  
+<!-- th:action="@{/member/checkLogin}" th:object="${group}" -->
+  <form class="loginForm animate__animated"  th:action="@{/member/checkLogin}" th:object="${group}" method="POST" id="toLoginForm">
         <h2>Login</h2>
         <div class="input">
             <div class="inputBox">
                 <label for="">帳號</label>
-                <input class="loginAccount" type="text" name="account" id="" autocomplete="off">
+<!--                 <input class="loginAccount" type="text" name="account"  id="" autocomplete="off"> -->
+                <input class="loginAccount" type="text" th:field="*{groupAccount}"  id="" autocomplete="off">
                 <span class="loginAccountEmpty">帳號未輸入</span>
             </div>
             <div class="inputBox">
                 <label for="">密碼</label>
-                <input class="loginpassword" type="password" name="password" id="">
+<!--                 <input class="loginpassword" type="password" name="password" id=""> -->
+                <input class="loginpassword" type="password" th:field="*{password}" id="">
                 <span class="loginPasswordEmpty">密碼未輸入</span>
             </div>
             <div class="inputBox">
                 <button type="button" id="loginBtn" onclick="goTologin()">登入</button>
                 
-                <span class="loginError">帳號或密碼錯誤</span>
+                <span th:if="${loginError != null}" class="loginError">帳號或密碼錯誤</span>
 <!--                 <input type="submit" id="loginBtn">登入 -->
             </div>
             <p class="register"><a href="#" id="goToRegister">前往註冊</a></p>

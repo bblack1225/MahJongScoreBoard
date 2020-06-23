@@ -23,13 +23,13 @@
     </div>
 	<div class="formDiv">
 	    <form class="recordForm" >
-	        <input class="addScore" type="text" name="score"  placeholder="score">
-	        <input class="hiddenGroupId" type="hidden" name="groupId" th:value="${groupId}" placeholder="score">
-	        <select class="memberOption" >
+	        <input class="addScore" type="text" name="score"  placeholder="score" style="width:200px">
+	        <input class="hiddenGroupId" type="hidden" name="groupId" th:value="${groupId}" placeholder="score" style="width:200px">
+	        <select class="memberOption" style="width:200px">
 	            <option >請選擇隊員</option>
 	            <option th:each="member:${groupMembers}" 
 	            		th:value="${member.memberId}"
-	            		th:text="${member.memberName}"></option>
+	            		th:text="${member.memberName}" ></option>
 	        </select>
 	        <select class="typeOption">
 	            <option >紀錄</option>
@@ -44,6 +44,9 @@
 	    	<input type="text" name="addMember" id="newMemberName">
 	    	<button type="button" onclick="addMembers()">新增隊員</button>
 	    </form>
+	    <div class="logout">
+	    	<a  th:href="@{/member/logout}">登出</a>
+	    </div>
     </div>
     <div id="memberBox">
 <!--     	<div id="memberName">馬哥</div> -->

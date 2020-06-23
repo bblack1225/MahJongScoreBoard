@@ -1,6 +1,5 @@
 package com.example.mjScore.model;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Entity;

@@ -12,11 +12,6 @@ public class MemberService {
 	@Autowired
 	private MemberRepository repo;
 	
-//	//找所有隊員
-//	public List<MemberBean> findAllMembersByTeam(int id){
-//		return repo.findById(id).get()
-//	}
-//	
 	//新增隊員
 	public void addMember(MemberBean memberBean) {
 		repo.save(memberBean);

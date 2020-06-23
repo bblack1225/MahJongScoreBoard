@@ -58,7 +58,7 @@ function showRecords(memberId, score) {
 		contentType : "application/json",
 		dataType : 'JSON',
 		success : function(response) {
-			showMemberRecords(response, score);
+			showMemberRecords(response, score,memberId);
 		},
 		error : function(data) {
 			alert("發生錯誤")
@@ -85,25 +85,15 @@ function showMembers(response) {
 }
 
 // 該名成員的紀錄
-function showMemberRecords(response, score) {
+function showMemberRecords(response, score,memberId) {
+	let memberName = $('#' + memberId).text();
 	let recordBox = $('#memberBox');
 	let inner = "";
-//	let map = response;
-	inner += `<div id="memberName">` + "安安" + `</div>`;
-	inner += `<div id="memberScore">` + score + `</div>`;
-//	inner += `<div id="specialType">`
-//	for(i = 0 ;i<response.length;i++){
-//		alert(response[i])
-//		inner += `<div class="singleType">`;
-//		inner += `<div class="typeName">` + "測試" + `:</div>`;
-//		inner += `<div id="typeCount">` + response[i] + `次</div>`;
-//		inner += `</div>`;
-//	}
+	inner += `<div id="memberName">` + memberName + `</div>`;
+	inner += `<div id="memberScore">` + "分數: " +score + `</div>`;
 	// key為種類 value為次數
 	inner += `<div id="specialType">`
 	$.map(response, function(value, key) {
-//		alert(key + " " + value);
-//	$.each(JSON.parse(list), function(i, record) {
 			inner += `<div class="singleType">`;
 			inner += `<div class="typeName">` + key+ `:</div>`;
 			inner += `<div id="typeCount">` + value + `次</div>`;

@@ -1,6 +1,5 @@
 package com.example.mjScore.controller;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,11 +16,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.mjScore.model.GroupBean;
 import com.example.mjScore.model.MemberBean;
 import com.example.mjScore.model.MemberRecord;
-import com.example.mjScore.model.RecordData;
 import com.example.mjScore.service.GroupService;
 import com.example.mjScore.service.MemberService;
 import com.example.mjScore.service.RecordService;
 
+/*
+ 此控制器的方法使用rest風格來撰寫，皆傳回物件給前端進行處理，有
+ 	1.新增隊伍的成員
+ 	2.新增一筆紀錄
+ 	3.顯示該名成員的紀錄
+ */
 @RestController
 @RequestMapping("/record")
 public class RecordController {
@@ -39,9 +43,9 @@ public class RecordController {
 	RecordService recordService;
 	
 	
+	//新增隊伍的成員
 	@PostMapping("/addMembers")
 	public List<MemberBean> addMembers(@RequestParam("memberName")String newMember,HttpServletResponse response,HttpSession session) {
-//		response.setCharacterEncoding("UTF-8");
 			GroupBean gb = (GroupBean)session.getAttribute("LoginOK");
 			Integer groupId = gb.getGroupId();
 			MemberBean mb = new MemberBean(newMember,new java.util.Date(),0,groupId);
@@ -56,26 +60,22 @@ public class RecordController {
 									   @RequestParam("score")int score,
 									   @RequestParam("typeId")int type,
 									   @RequestParam("groupId")int groupId){
+		//存紀錄時給予日期方便以後進行月份或年份的統計
 		MemberRecord record = new MemberRecord(id,type,new java.util.Date(),score);
 		recordService.saveRecord(record);
+		//取得會員原本的分數，並加(減)上新增的分數
 		Integer memberScore = memberService.getMember(id).getScore();
 		groupService.updateMemberScore(id, memberScore + score);
 		List<MemberBean> members = groupService.getMembersByTeamId(groupId);
 		return members;
 	}
 	
+	//顯示該名成員的紀錄
 	@PostMapping("/showRecords")
-//	public List<Integer> showRecords(@RequestParam("memberId")int id){
 		public Map<String,Integer> showRecords(@RequestParam("memberId")int id){
 		System.out.println("in");
 		Map<String,Integer> records = new LinkedHashMap<String, Integer>();
-//		List<Integer> records = new ArrayList<>();
 		records = recordService.getMemberRecords(id);
-		for(String a:records.keySet()) {
-			System.out.print("name" + a);
-			System.out.print("count" + records.get(a));
-			System.out.println();
-		}
 		return records;
 	}
 }

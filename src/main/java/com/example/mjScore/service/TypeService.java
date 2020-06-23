@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.example.mjScore.dao.TypeRepository;
 import com.example.mjScore.model.WinTypeBean;
 
+
+//顯示牌型的種類
 @Service
 public class TypeService {
 	

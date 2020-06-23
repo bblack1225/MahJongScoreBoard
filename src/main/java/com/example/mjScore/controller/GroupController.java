@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.mjScore.model.GroupBean;
@@ -25,9 +24,12 @@ import com.example.mjScore.model.MemberBean;
 import com.example.mjScore.model.WinTypeBean;
 import com.example.mjScore.service.GroupService;
 import com.example.mjScore.service.MemberService;
-import com.example.mjScore.service.RecordService;
 import com.example.mjScore.service.TypeService;
 
+/*裡面含有的方法有 
+  1.登入與註冊(這兩個功能在同一個頁面)
+  2.檢查帳號有沒有重複
+*/
 @Controller
 @RequestMapping("/member")
 public class GroupController {
@@ -41,10 +43,10 @@ public class GroupController {
 	@Autowired
 	MemberService memberService;
 	
-	//進入註冊頁面
-	@GetMapping("/register")
-	public String goToregister(@ModelAttribute("group") GroupBean group) {
-		return "register";
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
 	}
 	
 	//註冊
@@ -65,15 +67,19 @@ public class GroupController {
 	
 	//登入
 	@PostMapping("/checkLogin")
-	public String checkLogin(@RequestParam("account") String account,
-							 @RequestParam("password")String password,
-							 Model model,HttpSession session) {
+	public String checkLogin(@ModelAttribute("group") GroupBean group,
+			 Model model,HttpSession session) {
+		//登入的資料利用 綁定表單的方式取得 在thymeleaf中利用(th:field)
+		String account = group.getGroupAccount();
+		String password = group.getPassword();
 		GroupBean gb = groupService.checkLogin(account, password);
 		if(gb == null) {
 			model.addAttribute("loginError", "帳號或密碼錯誤");
 			return "index";
 		}else {
+			//取得該隊伍的每個成員
 			List<MemberBean> members = groupService.getMembersByTeamId(gb.getGroupId());
+			//取得所有的牌種(要顯示在option內)
 			List<WinTypeBean> types = typeService.getAllType();
 			session.setAttribute("LoginOK", gb);
 			model.addAttribute("groupId", gb.getGroupId());

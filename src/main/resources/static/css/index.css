@@ -140,3 +140,7 @@ body
     margin-top: 10px;
 }
 
+.loginError
+{
+	color:rgb(238, 235, 34);
+}

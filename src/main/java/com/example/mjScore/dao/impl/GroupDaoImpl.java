@@ -1,7 +1,6 @@
 package com.example.mjScore.dao.impl;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
