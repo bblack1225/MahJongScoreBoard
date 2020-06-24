@@ -54,9 +54,23 @@ body
     padding:10px 20px;
 }
 
+#memberNameBox
+{
+	display: flex;
+/*     justify-content: flex-start; */
+    align-items: center;
+}
+
 #memberBox #memberName
 {
 	font-size:40px;
+	
+}
+
+#memberNameBox a
+{
+	font-size:18px;
+	margin-left:auto;
 }
 
 /*滑鼠過去成員框框時放大，暗示可以點*/
@@ -103,6 +117,19 @@ body
     gap: 0 50px;
 }
 
+.recordForm input[type=text],
+.recordForm select,
+.recordForm select option,
+.recordForm button,
+.addMemberForm input[type=text],
+.addMemberForm button
+{
+	font-size:18px;
+	margin-top:10px;
+}
+
+
+
 /*單一種類的排版*/
 .singleType
 {
@@ -111,24 +138,60 @@ body
 	margin-top:5px;
 }
 
-.logout a
+a
 {
 	
-	color:#fff;
-	text-decoration: none;
+	 text-align: center;
+    position: relative;
+    padding: 10px 25px;
+    background: #33658A;
+    text-decoration: none;
+    color: #fff;
+    letter-spacing: 1px;
+    border: 1px solid #000;
+    transition: 0.5s;
+    border-radius: 5px;
+    overflow: hidden !important;
+}
+
+ a:hover
+{
+	background: #48bdeb;
+}
+ a::before
+{
+	content:'';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background:linear-gradient(90deg,transparent,#fff,transparent);
+    transition: 0.5s;
+}
+
+ a:hover::before
+{
+	left: 100%;
 }
 
 .logout
 {
-	text-align:center;
-	width:50px;
-	border:2px solid #ccc;
-	margin:0 auto;
-	border-radius:5px;
+	display: flex;
+    justify-content: center;
+    align-items: center;
 }
+/* .logout */
+/* { */
+/* 	text-align:center; */
+/* 	width:50px; */
+/* 	border:2px solid #ccc; */
+/* 	margin:0 auto; */
+/* 	border-radius:5px; */
+/* } */
 
-.logout:hover
-{
-	transform:scale(1.2);
-	transition:0.3;
-}
+/* .logout:hover */
+/* { */
+/* 	transform:scale(1.2); */
+/* 	transition:0.3; */
+/* } */

@@ -21,4 +21,8 @@ public interface GroupService {
 	
 	//更新成員的分數
 	public void updateMemberScore(int id,int score);
+	
+	public void updateLastTimePlay(GroupBean gb);
+	
+	public void updateMemberName(MemberBean mb);
 }

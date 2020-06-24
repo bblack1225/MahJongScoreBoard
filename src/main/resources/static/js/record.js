@@ -1,9 +1,8 @@
 //$(document).ready(function () {
-//	$('.member').click(function(){
-//		let name = $(this).find('.name').text()
-//		alert(name)
+//	$('#editMember').click(function(){
+//		alert("edit")
 //	})
-//}
+//})
 
 //新增會員
 function addMembers() {
@@ -99,7 +98,9 @@ function showMemberRecords(response, score,memberId) {
 	let memberName = $('#' + memberId).text();
 	let recordBox = $('#memberBox');
 	let inner = "";
+	inner += `<div id="memberNameBox">`
 	inner += `<div id="memberName">` + memberName + `</div>`;
+	inner += `<a href="#" onclick='editMember( `+memberId +`)' id="edit">`+ "編輯" +`</a><a href="#" onclick="confirmMember(`+memberId+`)" id="confirm" style="display:none;">`+ "確定" +`</a></div>`;
 	inner += `<div id="memberScore">` + "分數: " +score + `</div>`;
 	// key為種類 value為次數
 	inner += `<div id="specialType">`
@@ -111,4 +112,38 @@ function showMemberRecords(response, score,memberId) {
 	})
 	 inner += `</div>`;
 	 recordBox.html(inner);
+}
+
+//編輯個人檔案(改名及刪除隊員)
+function editMember(memberId){
+	let memberName = document.getElementById('memberName');
+	let editButton = document.getElementById('edit');
+	let confirmButton = document.getElementById('confirm');
+	memberName.innerHTML = '<input type="text" id="editInput" value="'+ memberName.innerText +'" style="font-size:18px;">';
+	editButton.style.display = 'none';
+	confirmButton.style.display = 'block';
+}
+
+//確認 有設計兩個按鈕 一個是編輯、一個是確定，在不同狀態下切換
+function confirmMember(memberId){
+//	let memberId = 
+	let memberName = document.getElementById('memberName');
+	let editInput = document.getElementById('editInput');
+	let newName = editInput.value;
+	let editButton = document.getElementById('edit');
+	let confirmButton = document.getElementById('confirm');
+	//把原本的input框改為原本的div
+	memberName.innerText = newName;
+	confirmButton.style.display = 'none';
+	editButton.style.display = 'block';
+	xhr = new XMLHttpRequest();
+	$.ajax({
+		url : '/member/editMemberName/' + newName + '/' + memberId,
+		method : 'POST',
+		success : function() {
+		},
+		error : function(data) {
+			alert("發生錯誤")
+		}
+	});
 }

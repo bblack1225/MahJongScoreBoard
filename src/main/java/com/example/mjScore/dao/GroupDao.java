@@ -16,4 +16,8 @@ public interface GroupDao {
 	public List<MemberBean> getMembersByTeamId(int id);
 	
 	public void updateMemberScore(int id,int score);
+
+	public void updateLastTimePlay(GroupBean gb);
+	
+	public void updateMemberName(MemberBean mb);
 }

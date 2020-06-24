@@ -66,5 +66,16 @@ public class GroupDaoImpl implements GroupDao {
 		String hql = "UPDATE MemberBean  m SET m.score = :score WHERE m.memberId = :id";
 		em.createQuery(hql).setParameter("score", score).setParameter("id", id).executeUpdate();
 	}
+
+	@Override
+	public void updateLastTimePlay(GroupBean gb) {
+		String hql = "UPDATE GroupBean g SET g.lastTimeToPlay = :time WHERE g.groupId = :id";
+		em.createQuery(hql).setParameter("time", gb.getLastTimeToPlay()).setParameter("id", gb.getGroupId()).executeUpdate();
+	}
 	
+	//該改成員名稱
+	public void updateMemberName(MemberBean mb) {
+		String hql = "UPDATE MemberBean m SET m.memberName = :name WHERE m.memberId = :id";
+		em.createQuery(hql).setParameter("name", mb.getMemberName()).setParameter("id", mb.getMemberId()).executeUpdate();
+	}
 }

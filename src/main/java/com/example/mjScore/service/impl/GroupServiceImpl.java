@@ -50,6 +50,13 @@ public class GroupServiceImpl implements GroupService{
 		dao.updateMemberScore(id, score);
 	}
 
+	@Override
+	public void updateLastTimePlay(GroupBean gb) {
+		dao.updateLastTimePlay(gb);
+	}
 
+	public void updateMemberName(MemberBean mb) {
+		dao.updateMemberName(mb);
+	}
 	
 }

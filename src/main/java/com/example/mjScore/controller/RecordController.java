@@ -31,9 +31,6 @@ import com.example.mjScore.service.RecordService;
 public class RecordController {
 	
 	@Autowired
-	RecordService service;
-	
-	@Autowired
 	GroupService groupService;
 	
 	@Autowired
