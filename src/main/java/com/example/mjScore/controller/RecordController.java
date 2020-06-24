@@ -70,7 +70,6 @@ public class RecordController {
 	//顯示該名成員的紀錄
 	@PostMapping("/showRecords")
 		public Map<String,Integer> showRecords(@RequestParam("memberId")int id){
-		System.out.println("in");
 		Map<String,Integer> records = new LinkedHashMap<String, Integer>();
 		records = recordService.getMemberRecords(id);
 		return records;

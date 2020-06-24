@@ -118,8 +118,6 @@ public class GroupController {
 	public void editMemberName(@PathVariable String name, @PathVariable int id,
 			HttpServletResponse response) {
 		response.setCharacterEncoding("UTF-8");
-			System.out.println("name=" + name);
-			System.out.println("id=" + id);
 			MemberBean mb = memberService.getMember(id);
 			mb.setMemberName(name);
 			groupService.updateMemberName(mb);

@@ -78,9 +78,9 @@ function showMembers(response) {
 		if(i == 0){
 			inner += `<span><i class="fas fa-crown" style="color: yellow;"></i></span>`;
 		}
-		if(i == 1){
-			inner += `<span><i class="fas fa-medal" style="color: silver;></i></span>`;
-		}
+//		if(i == 1){
+//			inner += `<span><i class="fas fa-medal" style="color: silver;></i></span>`;
+//		}
 		if(i == response.length - 1){
 			inner += `<span><i class="fas fa-poop" style="color: brown; padding-left:5px;"></i></span>`;
 		}
