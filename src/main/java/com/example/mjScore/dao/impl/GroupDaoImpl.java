@@ -75,7 +75,7 @@ public class GroupDaoImpl implements GroupDao {
 	
 	//該改成員名稱
 	public void updateMemberName(MemberBean mb) {
-		String hql = "UPDATE MemberBean m SET m.memberName = :name WHERE m.memberId = :id";
-		em.createQuery(hql).setParameter("name", mb.getMemberName()).setParameter("id", mb.getMemberId()).executeUpdate();
+		String hql = "UPDATE MemberBean m SET m.memberName = :name , m.score = :score WHERE m.memberId = :id";
+		em.createQuery(hql).setParameter("name", mb.getMemberName()).setParameter("score", mb.getScore()).setParameter("id", mb.getMemberId()).executeUpdate();
 	}
 }

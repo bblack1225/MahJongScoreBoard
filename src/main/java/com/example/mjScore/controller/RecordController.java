@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,12 +53,21 @@ public class RecordController {
 		return members;
 	}
 	
+	//呈現排行榜紀錄
+	@PostMapping("/showGroupRecord/{groupId}")
+	public List<MemberBean> showGroupRecord(@PathVariable int groupId) {
+		List<MemberBean> members = groupService.getMembersByTeamId(groupId);
+		return members;
+	}
+	
+	
 	//新增一筆紀錄
 	@PostMapping("/addRecord")
 	public List<MemberBean> saveRecord(@RequestParam("memberId")int id,
 									   @RequestParam("score")int score,
-									   @RequestParam("typeId")int type,
-									   @RequestParam("groupId")int groupId){
+									   @RequestParam(value="typeId")int type,
+									   @RequestParam("groupId")int groupId,
+									   Model model){
 		//存紀錄時給予日期方便以後進行月份或年份的統計
 		MemberRecord record = new MemberRecord(id,type,new java.util.Date(),score);
 		recordService.saveRecord(record);
@@ -74,4 +85,17 @@ public class RecordController {
 		records = recordService.getMemberRecords(id);
 		return records;
 	}
+	
+	@PostMapping("/showRecordByDate/{dateSelect}")
+	public Map<Integer,Integer> showRecordByDate(@PathVariable String dateSelect,Model model,HttpSession session){
+//		GroupBean gb = (GroupBean) session.getAttribute("LoginOK");
+		Map<Integer,Integer> map = new LinkedHashMap<>();
+//		if(!dateSelect.equals("total")) {
+//			List<MemberBean> members = groupService.getMembersByTeamId(gb.getGroupId());
+//			model.addAttribute("groupMembers", members);
+//		}
+		map = recordService.showSelectRecord(dateSelect);
+		return map;
+	}
+	
 }

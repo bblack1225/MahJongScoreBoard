@@ -96,14 +96,17 @@ body
 	width:100px;
 }
 
-.addMemberForm
+.addMemberForm,.dateForm
 {
 	margin:50px;
 }
 
 .formDiv
 {
-	padding-top:200px;
+	display:flex;
+	justify-content: center;
+/* 	align-items: center; */
+	flex-direction: column;
 }
 
 /* 特殊牌型的紀錄*/
@@ -116,7 +119,9 @@ body
     grid-template-rows: auto;
     gap: 0 50px;
 }
-
+.dateForm select,
+.dateForm select option,
+.dateForm button,
 .recordForm input[type=text],
 .recordForm select,
 .recordForm select option,

@@ -57,15 +57,17 @@ public class GroupController {
 	public String register(@ModelAttribute("group") GroupBean group, RedirectAttributes ra, HttpSession session) {
 		group.setCreateTime(new Timestamp(System.currentTimeMillis()));
 		groupService.saveGroup(group);
-		ra.addFlashAttribute("saveTeam", group);
-		return "redirect:/member/saveSuccess";
+//		ra.addFlashAttribute("saveTeam", group);
+		session.setAttribute("LoginOK", group);
+//		return "redirect:/member/saveSuccess";
+		return "redirect:/";
 	}
 
 	// 轉跳登入成功
-	@GetMapping("/saveSuccess")
-	public String saveSuccess() {
-		return "groupPage";
-	}
+//	@GetMapping("/saveSuccess")
+//	public String saveSuccess(HttpSession session) {
+//		return "/";
+//	}
 
 	// 登入
 	@PostMapping("/checkLogin")
@@ -114,12 +116,13 @@ public class GroupController {
 	}
 
 	//更改隊員的名稱
-	@PostMapping("/editMemberName/{name}/{id}")
-	public void editMemberName(@PathVariable String name, @PathVariable int id,
+	@PostMapping("/editMemberName/{name}/{id}/{score}")
+	public void editMemberName(@PathVariable String name, @PathVariable int id,@PathVariable int score,
 			HttpServletResponse response) {
 		response.setCharacterEncoding("UTF-8");
 			MemberBean mb = memberService.getMember(id);
 			mb.setMemberName(name);
+			mb.setScore(score);
 			groupService.updateMemberName(mb);
 			try {
 				PrintWriter out = response.getWriter();

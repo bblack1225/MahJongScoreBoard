@@ -41,7 +41,7 @@ public class RecordService {
 		List<Integer> list = em.createQuery(hql1).setParameter("id", id).getResultList();
 		int i = 1;
 		//資料庫中的ID是1~24
-		while(i != 25) {
+		while(i != 27) {
 			String typeName = (String)em.createQuery(hql3).setParameter("typeId", i).getSingleResult();
 			//如果牌型名稱有包含在該隊員的牌型list中
 			if(list.contains(i)) {
@@ -55,6 +55,27 @@ public class RecordService {
 			}
 			i++;
 		}		
+		return map;
+	}
+	
+	//選擇不同日期的分數呈現方式
+	public Map<Integer,Integer> showSelectRecord(String dateSelect){
+		Map<Integer,Integer> map = new LinkedHashMap<>();
+		//當天戰績
+		if(dateSelect.equals("today")) {
+			String hql = "SELECT m.memberId,sum(m.score) FROM MemberRecord m WHERE TO_DAYS(m.winTime) = TO_DAYS(NOW()) GROUP BY m.merberId";
+//			map = em.createQuery(hql).
+		}
+		//當月戰績
+		else if(dateSelect.equals("thisMonth")) {
+			
+		}
+		//當年戰績
+		else if(dateSelect.equals("thisYear")){
+			
+		}else {
+			
+		}
 		return map;
 	}
 	

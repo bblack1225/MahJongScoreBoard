@@ -28,7 +28,7 @@
 <!-- 			<span th:if="${memberStat.index == 1}">  -->
 <!-- 				<i class="fas fa-medal" style="color: silver;padding-left:5px;"></i> -->
 <!-- 			</span> -->
-			<span th:if="${memberStat.last}">
+			<span th:if="${memberStat.last && memberStat.index != 0}">
 				<i class="fas fa-poop" style="color: brown; padding-left:5px;"></i>
 			</span>
 			<div class="name" th:id="${member.memberId}"
@@ -37,12 +37,20 @@
 		</div>
 	</div>
 	<div class="formDiv">
+		<form class="dateForm">
+			<select class="dateOption" onchange="dateOption()">
+				<option value="total">總積分</option>
+				<option value="today">當天戰績</option>
+				<option value="thisMonth">當月戰績</option>
+				<option value="thisYear">年度戰績</option>
+			</select>
+		</form>
 		<form class="recordForm">
 			<input class="addScore" type="text" name="score" placeholder="score"
 				style="width: 200px;"> <input class="hiddenGroupId"
 				type="hidden" name="groupId" th:value="${groupId}"
-				placeholder="score" style="width: 200px"> <select
-				class="memberOption" style="width: 200px">
+				placeholder="score" style="width: 200px"> 
+			<select class="memberOption" style="width: 200px">
 				<option>請選擇隊員</option>
 				<option th:each="member:${groupMembers}"
 					th:value="${member.memberId}" th:text="${member.memberName}"></option>
