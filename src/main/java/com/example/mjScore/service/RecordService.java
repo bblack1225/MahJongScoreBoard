@@ -1,6 +1,8 @@
 package com.example.mjScore.service;
 
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,23 +61,33 @@ public class RecordService {
 	}
 	
 	//選擇不同日期的分數呈現方式
+	@SuppressWarnings("unchecked")
 	public Map<Integer,Integer> showSelectRecord(String dateSelect){
+//		public List<Integer> showSelectRecord(String dateSelect){
 		Map<Integer,Integer> map = new LinkedHashMap<>();
+//		List<Integer> list = new ArrayList<>();
+//		String date = simpleDateFormat.format(new Date(0));
 		//當天戰績
 		if(dateSelect.equals("today")) {
-			String hql = "SELECT m.memberId,sum(m.score) FROM MemberRecord m WHERE TO_DAYS(m.winTime) = TO_DAYS(NOW()) GROUP BY m.merberId";
-//			map = em.createQuery(hql).
-		}
-		//當月戰績
-		else if(dateSelect.equals("thisMonth")) {
+			map = repo.showSelectRecord(dateSelect);
+//			String hql = "SELECT m.memberId,sum(m.score) FROM MemberRecord m WHERE TO_DAYS(m.winTime) = TO_DAYS(NOW()) GROUP BY m.merberId";
+//			String hql = "SELECT sum(m.score) FROM MemberRecord m WHERE m.winTime between  GROUP BY m.memberId";
 			
+//			list = em.createQuery(hql).setParameter("date",date).getResultList();
+			for(int a : map.keySet()) {
+				System.out.println(a + " " +map.get(a));
+			}
 		}
-		//當年戰績
-		else if(dateSelect.equals("thisYear")){
-			
-		}else {
-			
-		}
+//		//當月戰績
+//		else if(dateSelect.equals("thisMonth")) {
+//			
+//		}
+//		//當年戰績
+//		else if(dateSelect.equals("thisYear")){
+//			
+//		}else {
+//			
+//		}
 		return map;
 	}
 	

@@ -1,5 +1,6 @@
 package com.example.mjScore.controller;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,14 +89,20 @@ public class RecordController {
 	
 	@PostMapping("/showRecordByDate/{dateSelect}")
 	public Map<Integer,Integer> showRecordByDate(@PathVariable String dateSelect,Model model,HttpSession session){
+//		public List<Integer> showRecordByDate(@PathVariable String dateSelect,Model model,HttpSession session){
+		List<Integer> list = new ArrayList<Integer>();
 //		GroupBean gb = (GroupBean) session.getAttribute("LoginOK");
 		Map<Integer,Integer> map = new LinkedHashMap<>();
 //		if(!dateSelect.equals("total")) {
 //			List<MemberBean> members = groupService.getMembersByTeamId(gb.getGroupId());
 //			model.addAttribute("groupMembers", members);
 //		}
+		System.out.println(dateSelect);
+		
+//		list = recordService.showSelectRecord(dateSelect);
 		map = recordService.showSelectRecord(dateSelect);
 		return map;
+//		return list;
 	}
 	
 }
