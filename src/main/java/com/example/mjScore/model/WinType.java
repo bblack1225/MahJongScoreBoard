@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name="winType")
-public class WinTypeBean {
+public class WinType {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,14 +33,14 @@ public class WinTypeBean {
 	
 	
 	
-	public WinTypeBean() {
+	public WinType() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 
 
-	public WinTypeBean(int typeId, String typeName, int typeNumber) {
+	public WinType(int typeId, String typeName, int typeNumber) {
 		super();
 		this.typeId = typeId;
 		this.typeName = typeName;

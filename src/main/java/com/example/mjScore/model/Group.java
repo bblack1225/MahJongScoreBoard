@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name="mjteam")
-public class GroupBean {
+public class Group {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,6 +34,7 @@ public class GroupBean {
 	private String 	groupName;
 	@Column(name="createTime")
 	private Date 	createTime;
+	
 	@Column(name="lastTimeToPlay")
 	private Date 	lastTimeToPlay;
 	
@@ -42,7 +43,7 @@ public class GroupBean {
 	
 	
 	
-	public GroupBean() {
+	public Group() {
 		super();
 	}
 
@@ -66,7 +67,7 @@ public class GroupBean {
 
 	
 	
-	public GroupBean(int groupId, String groupAccount, String password, String groupName, Date createTime,
+	public Group(int groupId, String groupAccount, String password, String groupName, Date createTime,
 			Date lastTimeToPlay) {
 		super();
 		this.groupId = groupId;

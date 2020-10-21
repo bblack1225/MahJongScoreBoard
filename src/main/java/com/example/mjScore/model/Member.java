@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "members")
-public class MemberBean {	
+public class Member {	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,7 +47,7 @@ public class MemberBean {
 	
 	
 	
-	public MemberBean() {
+	public Member() {
 		super();
 	}
 
@@ -68,7 +68,7 @@ public class MemberBean {
 		return memberId;
 	}
 
-	public MemberBean(String memberName, Date joinDate, int score, int groupId) {
+	public Member(String memberName, Date joinDate, int score, int groupId) {
 		super();
 		this.memberName = memberName;
 		this.joinDate = joinDate;
@@ -76,7 +76,7 @@ public class MemberBean {
 		this.groupId = groupId;
 	}
 
-	public MemberBean(int memberId, String memberName, Date joinDate, int score, int groupId) {
+	public Member(int memberId, String memberName, Date joinDate, int score, int groupId) {
 		super();
 		this.memberId = memberId;
 		this.memberName = memberName;

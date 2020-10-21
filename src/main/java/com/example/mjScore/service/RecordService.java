@@ -1,6 +1,7 @@
 package com.example.mjScore.service;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -11,9 +12,10 @@ import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.DateUtils;
 
-import com.example.mjScore.dao.RecordRepository;
 import com.example.mjScore.model.MemberRecord;
+import com.example.mjScore.repository.RecordRepository;
 
 @Service
 public class RecordService {
@@ -65,17 +67,17 @@ public class RecordService {
 	public Map<Integer,Integer> showSelectRecord(String dateSelect){
 //		public List<Integer> showSelectRecord(String dateSelect){
 		Map<Integer,Integer> map = new LinkedHashMap<>();
-//		List<Integer> list = new ArrayList<>();
-//		String date = simpleDateFormat.format(new Date(0));
+		List<Integer> list = new ArrayList<>();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
 		//當天戰績
 		if(dateSelect.equals("today")) {
-			map = repo.showSelectRecord(dateSelect);
-//			String hql = "SELECT m.memberId,sum(m.score) FROM MemberRecord m WHERE TO_DAYS(m.winTime) = TO_DAYS(NOW()) GROUP BY m.merberId";
+			String hql = "SELECT m.memberId FROM MemberRecord m WHERE m.winTime = :currentDate ORDER BY m.memberId";
 //			String hql = "SELECT sum(m.score) FROM MemberRecord m WHERE m.winTime between  GROUP BY m.memberId";
 			
-//			list = em.createQuery(hql).setParameter("date",date).getResultList();
-			for(int a : map.keySet()) {
-				System.out.println(a + " " +map.get(a));
+			list = em.createQuery(hql).setParameter("currentDate",sdf.format(date)).getResultList();
+			for(int a : list) {
+				System.out.println(a);
 			}
 		}
 //		//當月戰績

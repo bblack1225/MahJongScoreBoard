@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.mjScore.model.GroupBean;
-import com.example.mjScore.model.MemberBean;
+import com.example.mjScore.model.Group;
+import com.example.mjScore.model.Member;
 import com.example.mjScore.model.MemberRecord;
 import com.example.mjScore.service.GroupService;
 import com.example.mjScore.service.MemberService;
@@ -45,26 +45,26 @@ public class RecordController {
 	
 	//新增隊伍的成員
 	@PostMapping("/addMembers")
-	public List<MemberBean> addMembers(@RequestParam("memberName")String newMember,HttpServletResponse response,HttpSession session) {
-			GroupBean gb = (GroupBean)session.getAttribute("LoginOK");
+	public List<Member> addMembers(@RequestParam("memberName")String newMember,HttpServletResponse response,HttpSession session) {
+			Group gb = (Group)session.getAttribute("LoginOK");
 			Integer groupId = gb.getGroupId();
-			MemberBean mb = new MemberBean(newMember,new java.util.Date(),0,groupId);
+			Member mb = new Member(newMember,new java.util.Date(),0,groupId);
 			memberService.addMember(mb);
-			List<MemberBean> members = groupService.getMembersByTeamId(groupId);
+			List<Member> members = groupService.getMembersByTeamId(groupId);
 		return members;
 	}
 	
 	//呈現排行榜紀錄
 	@PostMapping("/showGroupRecord/{groupId}")
-	public List<MemberBean> showGroupRecord(@PathVariable int groupId) {
-		List<MemberBean> members = groupService.getMembersByTeamId(groupId);
+	public List<Member> showGroupRecord(@PathVariable int groupId) {
+		List<Member> members = groupService.getMembersByTeamId(groupId);
 		return members;
 	}
 	
 	
 	//新增一筆紀錄
 	@PostMapping("/addRecord")
-	public List<MemberBean> saveRecord(@RequestParam("memberId")int id,
+	public List<Member> saveRecord(@RequestParam("memberId")int id,
 									   @RequestParam("score")int score,
 									   @RequestParam(value="typeId")int type,
 									   @RequestParam("groupId")int groupId,
@@ -75,7 +75,7 @@ public class RecordController {
 		//取得會員原本的分數，並加(減)上新增的分數
 		Integer memberScore = memberService.getMember(id).getScore();
 		groupService.updateMemberScore(id, memberScore + score);
-		List<MemberBean> members = groupService.getMembersByTeamId(groupId);
+		List<Member> members = groupService.getMembersByTeamId(groupId);
 		return members;
 	}
 	

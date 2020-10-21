@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.mjScore.dao.TypeRepository;
-import com.example.mjScore.model.WinTypeBean;
+import com.example.mjScore.model.WinType;
+import com.example.mjScore.repository.TypeRepository;
 
 
 //顯示牌型的種類
@@ -16,7 +16,7 @@ public class TypeService {
 	@Autowired
 	TypeRepository repo;
 	
-	public List<WinTypeBean> getAllType(){
+	public List<WinType> getAllType(){
 		return repo.findAll();
 	}
 }

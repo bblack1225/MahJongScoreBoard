@@ -9,9 +9,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.mjScore.dao.GroupDao;
-import com.example.mjScore.dao.GroupRepository;
-import com.example.mjScore.model.GroupBean;
-import com.example.mjScore.model.MemberBean;
+import com.example.mjScore.model.Group;
+import com.example.mjScore.model.Member;
+import com.example.mjScore.repository.GroupRepository;
 import com.example.mjScore.service.GroupService;
 
 @Transactional
@@ -23,16 +23,16 @@ public class GroupServiceImpl implements GroupService{
 	GroupDao dao;
 	
 	@Autowired
-	GroupRepository repo;
+	GroupRepository groupRepository;
 	
 	@Override
-	public void saveGroup(GroupBean gb) {
+	public void saveGroup(Group gb) {
 		dao.saveGroup(gb);
 	}
 
 	@Override
-	public GroupBean checkLogin(String account, String password) {
-		return dao.checkLogin(account, password);
+	public Group checkLogin(String account, String password) {
+		return groupRepository.findByGroupAccountAndPassword(account, password);
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class GroupServiceImpl implements GroupService{
 	}
 
 	@Override
-	public List<MemberBean> getMembersByTeamId(int id) {
+	public List<Member> getMembersByTeamId(int id) {
 		return dao.getMembersByTeamId(id);
 	}
 
@@ -51,11 +51,11 @@ public class GroupServiceImpl implements GroupService{
 	}
 
 	@Override
-	public void updateLastTimePlay(GroupBean gb) {
+	public void updateLastTimePlay(Group gb) {
 		dao.updateLastTimePlay(gb);
 	}
 
-	public void updateMemberName(MemberBean mb) {
+	public void updateMemberName(Member mb) {
 		dao.updateMemberName(mb);
 	}
 	

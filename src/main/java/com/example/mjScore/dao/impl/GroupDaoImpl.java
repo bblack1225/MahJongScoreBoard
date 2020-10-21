@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.example.mjScore.dao.GroupDao;
-import com.example.mjScore.model.GroupBean;
-import com.example.mjScore.model.MemberBean;
+import com.example.mjScore.model.Group;
+import com.example.mjScore.model.Member;
 
 
 @Repository
@@ -21,17 +21,17 @@ public class GroupDaoImpl implements GroupDao {
 	
 	//儲存隊伍資料
 	@Override
-	public void saveGroup(GroupBean gb) {
+	public void saveGroup(Group gb) {
 		em.persist(gb);
 	}
 	
 	//登入檢查
 	@SuppressWarnings("unchecked")
 	@Override
-	public GroupBean checkLogin(String account, String password) {
-		GroupBean gb = null;
-		String hql = "FROM GroupBean g WHERE g.groupAccount = :account AND g.password = :password";
-		List<GroupBean> bean = em.createQuery(hql).setParameter("account", account).setParameter("password", password).getResultList();
+	public Group checkLogin(String account, String password) {
+		Group gb = null;
+		String hql = "FROM Group g WHERE g.groupAccount = :account AND g.password = :password";
+		List<Group> bean = em.createQuery(hql).setParameter("account", account).setParameter("password", password).getResultList();
 		if(bean.size()>0) {
 			gb = bean.get(0);
 		}
@@ -41,7 +41,7 @@ public class GroupDaoImpl implements GroupDao {
 	@Override
 	public boolean accountExists(String account) {
 		boolean exist = false;
-		String hql = "FROM GroupBean g WHERE g.groupAccount = :account";
+		String hql = "FROM Group g WHERE g.groupAccount = :account";
 		try {
 			em.createQuery(hql)
 			  .setParameter("account", account)
@@ -55,27 +55,27 @@ public class GroupDaoImpl implements GroupDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<MemberBean> getMembersByTeamId(int id) {
-		String hql = "FROM MemberBean m WHERE m.groupId = :id ORDER BY m.score DESC";
+	public List<Member> getMembersByTeamId(int id) {
+		String hql = "FROM Member m WHERE m.groupId = :id ORDER BY m.score DESC";
 		return em.createQuery(hql).setParameter("id", id).getResultList();
 //		return em.find(GroupBean.class, id);
 	}
 
 	@Override
 	public void updateMemberScore(int id,int score) {
-		String hql = "UPDATE MemberBean  m SET m.score = :score WHERE m.memberId = :id";
+		String hql = "UPDATE Member  m SET m.score = :score WHERE m.memberId = :id";
 		em.createQuery(hql).setParameter("score", score).setParameter("id", id).executeUpdate();
 	}
 
 	@Override
-	public void updateLastTimePlay(GroupBean gb) {
-		String hql = "UPDATE GroupBean g SET g.lastTimeToPlay = :time WHERE g.groupId = :id";
+	public void updateLastTimePlay(Group gb) {
+		String hql = "UPDATE Group g SET g.lastTimeToPlay = :time WHERE g.groupId = :id";
 		em.createQuery(hql).setParameter("time", gb.getLastTimeToPlay()).setParameter("id", gb.getGroupId()).executeUpdate();
 	}
 	
 	//該改成員名稱
-	public void updateMemberName(MemberBean mb) {
-		String hql = "UPDATE MemberBean m SET m.memberName = :name , m.score = :score WHERE m.memberId = :id";
+	public void updateMemberName(Member mb) {
+		String hql = "UPDATE Member m SET m.memberName = :name , m.score = :score WHERE m.memberId = :id";
 		em.createQuery(hql).setParameter("name", mb.getMemberName()).setParameter("score", mb.getScore()).setParameter("id", mb.getMemberId()).executeUpdate();
 	}
 }
